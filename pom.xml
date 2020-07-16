@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mastercard.ap.security</groupId>
+    <artifactId>ap-bah-crypto-utility</artifactId>
+    <version>0.0.6-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <java.version>11</java.version>
+        <org.apache.santuario.xmlsec.version>2.1.4</org.apache.santuario.xmlsec.version>
+        <net.sf.saxon.version>10.1</net.sf.saxon.version>
+        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
+        <plugin.site.version>3.3</plugin.site.version>
+        <checkstyle.skip>false</checkstyle.skip>
+        <findbugs.skip>false</findbugs.skip>
+        <pmd.skip>false</pmd.skip>
+        <maven-pmd-plugin.configLocation>${quality.dir}/PMD_Config.xml</maven-pmd-plugin.configLocation>
+        <maven-checkstyle-plugin.configLocation>${quality.dir}/Checkstyle_Config.xml
+        </maven-checkstyle-plugin.configLocation>
+        <maven-findbugs-plugin.configLocation>${quality.dir}/Findbugs_Config.xml</maven-findbugs-plugin.configLocation>
+
+        <!-- Code Coverage with SONAR -->
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <!-- Tells Sonar to reuse existing reports, NEEDED when testing with TestNG! -->
+        <!-- The destination file for the code coverage report has to be set to the same value
+            in the parent pom and in each module pom. Then JaCoCo will add up information in
+            the same report, so that, it will give the cross-module code coverage. -->
+        <sonar.jacoco.itReportPath>${jacoco.reportPath.dir}/ap-security-jacoco-it-r3.exec</sonar.jacoco.itReportPath>
+        <sonar.jacoco.reportPath>${jacoco.reportPath.dir}/ap-security-jacoco-ut-r3.exec</sonar.jacoco.reportPath>
+        <sonar.language>java</sonar.language>
+        <sonar.java.source>1.8</sonar.java.source>
+        <lombok.version>1.18.0</lombok.version>
+        <junit.version>4.12</junit.version>
+        <org.mockito.version>1.9.5</org.mockito.version>
+    </properties>
+    <scm>
+        <connection>scm:git:http://bitbucket.vocalink.co.uk/scm/zapp/ap-bah-crypto-utility</connection>
+        <url>http://bitbucket.vocalink.co.uk/scm/zapp/ap-bah-crypto-utility.git</url>
+    </scm>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+            <version>${org.apache.santuario.xmlsec.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>${net.sf.saxon.version}</version>
+        </dependency>
+
+        <!-- Test related dependencies. -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-integration</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${org.mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>7.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+
+            <!-- Maven Site Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${plugin.site.version}</version>
+                <configuration>
+                    <attach>true</attach>
+                    <reportPlugins>
+                        <!-- findBugs Plugin -->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>findbugs-maven-plugin</artifactId>
+                            <version>2.5.2</version>
+                            <configuration>
+                                <aggregate>true</aggregate>
+                                <skip>${findbugs.skip}</skip>
+                                <includeFilterFile>${maven-findbugs-plugin.configLocation}</includeFilterFile>
+                            </configuration>
+                        </plugin>
+                        <!-- Checkstyle Plugin -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <configuration>
+                                <skip>${checkstyle.skip}</skip>
+                                <configLocation>${maven-checkstyle-plugin.configLocation}</configLocation>
+                                <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                            </configuration>
+                        </plugin>
+                        <!-- PMD plugin -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <configuration>
+                                <aggregate>true</aggregate>
+                                <skip>${pmd.skip}</skip>
+                                <failOnViolation>false</failOnViolation>
+                                <rulesets>
+                                    <ruleset>${maven-pmd-plugin.configLocation}</ruleset>
+                                </rulesets>
+                            </configuration>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-descriptor</id>
+                        <goals>
+                            <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd</artifactId>
+                        <version>5.0.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <propertyName>jacoco.agent.argLine</propertyName>
+                    <destFile>${sonar.jacoco.itReportPath}</destFile>
+                    <append>true</append>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <!--					<reportSets>-->
+                    <!--						<reportSet>-->
+                    <!--							<inherited>true</inherited>-->
+                    <!--							<reports>-->
+                    <!--								<report>report-only</report>-->
+                    <!--								<report>failsafe-report-only</report>-->
+                    <!--							</reports>-->
+                    <!--						</reportSet>-->
+                    <!--					</reportSets>-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14.1</version>
+                <configuration>
+                    <argLine>${jacoco.agent.argLine},destfile=${sonar.jacoco.reportPath}</argLine>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*IntTest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.14.1</version>
+                <configuration>
+                    <!--<argLine>${failsafe.argLine},${jacoco.agent.argLine},destfile=${sonar.jacoco.itReportPath}</argLine> -->
+                    <argLine>${jacoco.agent.argLine},destfile=${sonar.jacoco.itReportPath}</argLine>
+                    <includes>
+                        <include>**/*IntTest.java</include>
+                        <include>**/*Story.java</include>
+                    </includes>
+                    <!-- <excludes> <exclude>com/ap/**/jaxb/**/*.java</exclude> <exclude>com/ap/**/webservice/**/*.java</exclude>
+                        </excludes> -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>verify</goal>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>false</filtering>
+            </testResource>
+        </testResources>
+
+    </build>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.14.1</version>
+                        <configuration>
+                            <argLine>${jacoco.agent.argLine},destfile=${sonar.jacoco.reportPath}</argLine>
+                            <includes>
+                                <include>**/*Test.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/stories/*.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>APCore Nexus snapshot repository</name>
+            <url>https://nexus-rm.vocalink.co.uk/nexus/repository/zapp-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>releases</id>
+            <name>APCore Nexus release repository</name>
+            <url>https://nexus-rm.vocalink.co.uk/nexus/repository/zapp-releases/</url>
+        </repository>
+    </distributionManagement>
+
+</project>
