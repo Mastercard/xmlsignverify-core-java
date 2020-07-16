@@ -1,0 +1,51 @@
+#Compiled sources #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw sources
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.exec
+
+# OS generated files #
+######################
+.DS_Store
+.DS_STORE?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+*.log
+FFDC/
+target/
+transaction-logs/
+# ItelliJ
+.idea
+*.iws
+*.ipr
+*.idea_modules/
+*.iml
+# Eclipse
+bin/
+.classpath
+.project
+.settings/
+.metadata
+.factorypath
+
