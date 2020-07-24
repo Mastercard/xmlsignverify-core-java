@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2020 Mastercard
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This class provide the sign and verify methods for XML document digital signature as per ISO20022 standards.
+ */
+
 package com.mastercard.ap.security.bah.utility;
 
 
@@ -34,9 +52,6 @@ import static com.mastercard.ap.security.bah.utility.context.Constants.SECUREMEN
 import static com.mastercard.ap.security.bah.utility.context.Constants.SIGNATURE_LOCAL_NAME;
 import static com.mastercard.ap.security.bah.utility.context.Constants.WS_SECURITY_NAME;
 
-/**
- * This class provide the sign and verify methods for XML document digital signature as per ISO20022 standards.
- */
 public class XmlSignUtil {
 
     private final static Logger LOG = LoggerFactory.getLogger(XmlSignUtil.class);
