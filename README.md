@@ -10,7 +10,8 @@
 
 ## Overview <a name="overview"></a>
 Library for signing xml payload as per Iso20022 guidelines.
-Refer [ISO20022 xml digital signature - developers reference guide](docs/ISO20022 XML Digital Signature - Developers Reference Guide.md)
+[ISO20022 xml digital signature - developers reference guide](docs/ISO20022_XML_Digital_Signature_Developers_Reference_Guide.md)
+
 The Signed XML payload is consist of three references:
 * Resource as uri "" - will get resolved to AppHdr
 * Resource as uri null - will get resolved to Document
