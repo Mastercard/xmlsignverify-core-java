@@ -10,6 +10,7 @@
 
 ## Overview <a name="overview"></a>
 Library for signing xml payload as per Iso20022 guidelines.
+Refer [ISO20022 xml digital signature - developers reference guide](docs/ISO20022 XML Digital Signature - Developers Reference Guide.md)
 The Signed XML payload is consist of three references:
 * Resource as uri "" - will get resolved to AppHdr
 * Resource as uri null - will get resolved to Document
@@ -27,11 +28,16 @@ Sign the xml Document and argument to this method are:
   * signatureInfo - signature info which will used in signing xml payload
   * signatureKeyInfo - signature key info which hold private key and ski bytes to be set in X509 Data
 
+[Developers guide on Signing flow](docs/MessageSigningFlow.md)
+
+
 ### Verifying the request <a name="verifyrequest"></a>
 XmlSignUtil.verify(Document document, PublicKey publicKey):
 Verify the Signed payload and  argument to this method are:
   *  document - the signed payload
   *  publicKey - the public key
+
+[Developers guide on Verification flow](docs/MessageVerificationFlow.md)
 
 ### Adding the Library to Your Project <a name="adding-the-library-to-your-project"></a>
 
