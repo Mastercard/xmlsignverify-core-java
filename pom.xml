@@ -312,17 +312,5 @@
 
     </profiles>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>APCore Nexus snapshot repository</name>
-            <url>https://nexus-rm.vocalink.co.uk/nexus/repository/zapp-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>releases</id>
-            <name>APCore Nexus release repository</name>
-            <url>https://nexus-rm.vocalink.co.uk/nexus/repository/zapp-releases/</url>
-        </repository>
-    </distributionManagement>
-
+  
 </project>
