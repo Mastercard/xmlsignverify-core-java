@@ -41,7 +41,7 @@ Verify the Signed payload and  argument to this method are:
 
 
 
-[ISO20022 Signed Unsigned Examples](docs/ISO20022_Signed_Unsigned_Examples_Reference_Guide.md)
+[ISO20022 Signed Unsigned Message Examples](docs/ISO20022_Example_Signed_Unsigned_Message.md)
 
 ### Adding the Library to Your Project <a name="adding-the-library-to-your-project"></a>
 

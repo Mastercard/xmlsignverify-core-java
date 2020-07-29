@@ -13,7 +13,6 @@ The private keys are stored in hardware security module with appropriate securit
 * Build the X509Data sub node by populating the Subject Key Identifier (SKI) value from the signer certificate in the X509SKI sub-element
 * Assign a UNIQUE_IDENTIFY_VALUE to the attribute “Id” of the KeyInfo element
 
-For more details, refer to library source code available on Apache Santuario libarary on Apache website.
 
 Example Output XML node
 
@@ -45,7 +44,7 @@ Considerations:
     -   URI="" in reference for Document node
     -   No URI in reference node for AppHdr node
     -   URI="#Id" in reference node for KeyInfo node
-* The apache santuario library used doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the developers need to provide and register the appropriate resolver implementation. Refer to appendix for more information.
+* The XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolver have been added.
 
 Example Output XML node
 ```xml
@@ -111,7 +110,7 @@ Once "SignedInfo" node is populated with all the references, the final step is g
 
 * Calculate the digests of 3 nodes and populate the digest values under Reference nodes in SignedInfo
 * Perform XML Exclusive Canonicalization Transform on the "SignedInfo" node/object as a whole using the algorithm http://www.w3.org/2001/10/xml-exc-c14n#
-* Sign the canonicalized "SignedInfo" object/node using the signing algorithm http://www.w3.org/2001/04/xmldsig-more#rsa-sha256 and the private key. This step results into * * Base64 encoded string value as shown in below example.
+* Sign the canonicalized "SignedInfo" object/node using the signing algorithm http://www.w3.org/2001/04/xmldsig-more#rsa-sha256 and the private key. This step results into Base64 encoded string value as shown in below example.
 * Populate the "Signature/SignatureValue" element with the resulting Base64 encoded string output value
 
 Example Output XML node

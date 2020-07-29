@@ -1,21 +1,9 @@
 
 
 ## Table of Contents
-- [Overview](#overview)
 - [Example signed and unsigned messages](#signedunsignedmessageexample)
 
-## Overview <a name="overview"></a>
-The purpose of this document is to help developers get better understanding of how message signing and message verification can be developed in accordance to the ISO20022 rules.
-
-This document should be read in conjunction with the Zapp Platform Digital Signature Implementation Guide for ISO20022.
-
-Developers must note that this is only a guide to provide some reference Java code snippets for helping with implementation and don't mandate the code to be used literally, as documented.
-
-The code snippets provided in this document use Apache Santuario APIs for Signing and Signature Verification implementation, other frameworks/technologies used in partners/vendor platforms may have specific implementations. They must adhere to the requirements specified in the Implementation guide.
-
 ## Example signed and unsigned messages <a name="signedunsignedmessageexample"></a>
-
-Before going into the process of digital signing and message verification, the developer should understand how a signed and unsigned message looks like.
 
 As shown in below example, the signed message has "Sgntr" node added as a child node under "AppHdr" node. The digital signing process adds this node.
 
