@@ -58,10 +58,10 @@ public class XmlSignUtilTest {
         KeyStore ks = KeyStore.getInstance("JKS");
         InputStream keyStoreStream = this.getClass().getResourceAsStream("/keystore.jks");
 
-        ks.load(keyStoreStream, "test123".toCharArray());
+        ks.load(keyStoreStream, "68eacb97d86f0c4621fa2b0e17cabd8c".toCharArray());
         x509Certificate = (X509Certificate) ks.getCertificate("test");
 
-        privateKey = (PrivateKey) ks.getKey("test", "test123".toCharArray());
+        privateKey = (PrivateKey) ks.getKey("test", "68eacb97d86f0c4621fa2b0e17cabd8c".toCharArray());
 
     }
 
