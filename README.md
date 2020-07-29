@@ -10,7 +10,6 @@
 
 ## Overview <a name="overview"></a>
 Library for signing xml payload as per Iso20022 guidelines.
-[ISO20022 xml digital signature - developers reference guide](docs/ISO20022_XML_Digital_Signature_Developers_Reference_Guide.md)
 
 The Signed XML payload is consist of three references:
 * Resource as uri "" - will get resolved to AppHdr
@@ -39,6 +38,10 @@ Verify the Signed payload and  argument to this method are:
   *  publicKey - the public key
 
 [Developers guide on Verification flow](docs/MessageVerificationFlow.md)
+
+
+
+[ISO20022 Signed Unsigned Examples](docs/ISO20022_Signed_Unsigned_Examples_Reference_Guide.md)
 
 ### Adding the Library to Your Project <a name="adding-the-library-to-your-project"></a>
 
