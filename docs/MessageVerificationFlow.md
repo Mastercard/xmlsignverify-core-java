@@ -16,15 +16,16 @@ The developers should read X509SKI value to look up the public key from a trust 
 
 **Step 3: Verify the integrity of Signature content**
 
-Considerations:
+ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.  
 
-* ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown in above sections.
-* XMLSignature uses the resolvers to find the relevant node for calculating the digest for each reference. The apache santuario library used doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the developers need to provide implementation and register the resolvers, which can be used by XMLSignature to resolve the corresponding node for each reference node. Refer to appendix for more information.
+* URI="" in reference for Document node 
 
-For more details, refer to library source code available on Apache Santuario library on Apache website.
+* No URI in reference node for AppHdr node 
+
+* URI="#Id" in reference node for KeyInfo node
+
+The org.apache.xml.security.signature.XMLSignature implementation doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolvers have been added. 
 
 **Step 4: Process the message**
 
 If the result of the signature verification is successful, the message can be used for semantic validations and processing.
-
-References https://santuario.apache.org/
