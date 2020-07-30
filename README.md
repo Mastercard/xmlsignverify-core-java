@@ -1,3 +1,5 @@
+[![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Mastercard/ap-bah-crypto-utility/blob/master/LICENSE)
+
 
 ## Table of Contents
 - [Overview](#overview)
@@ -9,12 +11,15 @@
   * [Keytool Command to generate private-pubic key pair](#keytool-command-to-generate-public-private-key-pair)
 
 ## Overview <a name="overview"></a>
-Library for signing xml payload as per Iso20022 guidelines.
+This SDK library provides reference implementation of ISO 20022 Digital Signature specification to sign and verify XML messages. 
+It assumes that you have read the specification prior to coming here.
 
-The Signed XML payload is consist of three references:
-* Resource as uri "" - will get resolved to AppHdr
-* Resource as uri null - will get resolved to Document
-* Resource as uri with id equals to some value - will get resolve to element as per that id value
+Refer to [ISO20022 Signed Unsigned Message Examples](docs/ISO20022_Example_Signed_Unsigned_Message.md) for understanding the difference between a signed and unsigned message.
+
+In Signed XML payload, you will see three reference nodes:
+* Resource as uri="" - will get resolved to AppHdr
+* Resource with no uri - will get resolved to Document
+* Resource as uri="#id" - will get resolved to element as per that id value
 
 ### Compatibility <a name="compatibility"></a>
 Java 11+
@@ -22,26 +27,23 @@ Java 11+
 ## Usage <a name="usage"></a>
 
 ### Signing the request <a name="signrequest"></a>
-XmlSignUtil.sign(Document document, SignatureInfo signatureInfo, SignatureKeyInfo signatureKeyInfo):
-Sign the xml Document and argument to this method are:
-  * document - the unsigned document payload 
-  * signatureInfo - signature info which will used in signing xml payload
-  * signatureKeyInfo - signature key info which hold private key and ski bytes to be set in X509 Data
 
-[Developers guide on Signing flow](docs/MessageSigningFlow.md)
+XmlSignUtil.sign(Document document, SignatureInfo signatureInfo, SignatureKeyInfo signatureKeyInfo) signs the XML Document where:
+  * document - the unsigned payload 
+  * signatureInfo - signature info which is used in signing the payload
+  * signatureKeyInfo - signature key info which holds private key and ski bytes to be set in X509 Data element
+
+Refer to [detailed message signing flow](docs/MessageSigningFlow.md)
 
 
 ### Verifying the request <a name="verifyrequest"></a>
-XmlSignUtil.verify(Document document, PublicKey publicKey):
-Verify the Signed payload and  argument to this method are:
+
+XmlSignUtil.verify(Document document, PublicKey publicKey) verifies the signed payload where:
   *  document - the signed payload
   *  publicKey - the public key
 
-[Developers guide on Verification flow](docs/MessageVerificationFlow.md)
+Refer to [detailed message verification flow](docs/MessageVerificationFlow.md)
 
-
-
-[ISO20022 Signed Unsigned Message Examples](docs/ISO20022_Example_Signed_Unsigned_Message.md)
 
 ### Adding the Library to Your Project <a name="adding-the-library-to-your-project"></a>
 

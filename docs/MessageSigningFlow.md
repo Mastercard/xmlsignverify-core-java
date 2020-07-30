@@ -1,5 +1,8 @@
 
 ## Message Signing Flow 
+
+Follow below steps in order to sign a message.
+
 **Step 1: Identify the private key and associated signing certificate required for signing** 
 
 The developers should ensure that the Signer application has access to the private keys.
@@ -7,6 +10,17 @@ The developers should ensure that the Signer application has access to the priva
 The private keys are stored in hardware security module with appropriate security controls, the public key of the key pair must have been shared with message Verifier.
 
 **Step 2: Add Sgntr/Signature nodes to AppHdr**
+
+Example Output XML node
+
+```xml
+
+<urn1:Sgntr>
+  <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  </ds:Signature>
+</urn1:Sgntr>
+
+```
 
 **Step 3: Populate KeyInfo node**
 * Add KeyInfo child node to the Signature parent element
@@ -32,19 +46,19 @@ Example Output XML node
 
 * Add the SignedInfo node as a child to Signature node
 * Add reference nodes for the following nodes to the SignedInfo node.
-    -   AppHdr node
+    - AppHdr node
     - Document node
     - KeyInfo node (child of Signature node)
 
 Considerations:
 
-* The signing process requires generation of digest for above 3 nodes. In the code snippets shown here, the digests are calculated during signing process, which is final step. See internal implementation of  org.apache.xml.security.signature.XMLSignature.sign() method. Different libraries may have their own implementation.
+* The signing process requires generation of digest for above 3 nodes. The digests are calculated during signing process, which is final step. See internal implementation of org.apache.xml.security.signature.XMLSignature.sign() method. Other libraries may have their own implementation.
 * org.apache.xml.security.signature.XMLSignature uses the resolvers to find the relevant node for calculating the digest for each reference.
 * ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.
     -   URI="" in reference for Document node
     -   No URI in reference node for AppHdr node
     -   URI="#Id" in reference node for KeyInfo node
-* The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolver have been added.
+* The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the resolvers `XmlSignBAHResolver`, `XmlSignDocumentResolver` have been added.
 
 Example Output XML node
 ```xml

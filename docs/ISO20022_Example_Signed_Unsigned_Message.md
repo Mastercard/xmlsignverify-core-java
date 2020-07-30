@@ -1,13 +1,6 @@
-
-
-## Table of Contents
-- [Example signed and unsigned messages](#signedunsignedmessageexample)
-
 ## Example signed and unsigned messages <a name="signedunsignedmessageexample"></a>
 
-As shown in below example, the signed message has "Sgntr" node added as a child node under "AppHdr" node. The digital signing process adds this node.
-
-Unsigned ISO message example
+# Unsigned ISO message example
 
 ```xml
 <rain1:RequestPayload xmlns:rain1="http://ap.com/xsd/message/iso20022/rain.001.001.01">
@@ -24,7 +17,9 @@ Unsigned ISO message example
 </rain1:RequestPayload>
 ```
 
-Signed ISO message example
+# Signed ISO message example
+
+The signed message has "Sgntr" node added as a child node under "AppHdr" node. The digital signing process adds this node.
 
 ```xml
 

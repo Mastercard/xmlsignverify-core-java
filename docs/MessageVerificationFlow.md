@@ -4,7 +4,7 @@ Follow below steps in order to verify the digital signature of a message.
 
 **Step 1: Verify that Signature node is present** 
 
-Check for present of Signature node in the message and if absent, stop further processing of the message.
+Check for presence of Signature node in the message and if absent, stop further processing of the message.
 
 **Step 2: Identify the public key to verify the message**
 
@@ -24,7 +24,7 @@ ISO20022 rules mandate the reference nodes to follow specific URI attributes, as
 
 * URI="#Id" in reference node for KeyInfo node
 
-The org.apache.xml.security.signature.XMLSignature implementation doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolvers have been added. 
+The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the resolvers `XmlSignBAHResolver`, `XmlSignDocumentResolver` have been added.
 
 **Step 4: Process the message**
 
