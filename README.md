@@ -23,6 +23,7 @@ In Signed XML payload, you will see three reference nodes:
 
 ### Compatibility <a name="compatibility"></a>
 Java 11+
+Maven 3.6.1+
 
 ## Usage <a name="usage"></a>
 
