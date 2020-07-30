@@ -38,13 +38,13 @@ Example Output XML node
 
 Considerations:
 
-* The signing process requires generation of digest for above 3 nodes. In the code snippets shown here, the digests are calculated during signing process, which is final step. See internal implementation of XMLSignature.sign() method. Different libraries may have their own implementation.
-* XMLSignature uses the resolvers to find the relevant node for calculating the digest for each reference.
+* The signing process requires generation of digest for above 3 nodes. In the code snippets shown here, the digests are calculated during signing process, which is final step. See internal implementation of  org.apache.xml.security.signature.XMLSignature.sign() method. Different libraries may have their own implementation.
+* org.apache.xml.security.signature.XMLSignature uses the resolvers to find the relevant node for calculating the digest for each reference.
 * ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.
     -   URI="" in reference for Document node
     -   No URI in reference node for AppHdr node
     -   URI="#Id" in reference node for KeyInfo node
-* The XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolver have been added.
+* The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the appropriate resolver have been added.
 
 Example Output XML node
 ```xml
