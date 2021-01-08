@@ -16,15 +16,15 @@ The developers should read X509SKI value to look up the public key from a trust 
 
 **Step 3: Verify the integrity of Signature content**
 
-ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.  
+ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.Â Â 
 
-* URI="" in reference for Document node 
+* `URI=""` in reference for Document nodeÂ 
 
-* No URI in reference node for AppHdr node 
+* No URI in reference node for AppHdr nodeÂ 
 
-* URI="#Id" in reference node for KeyInfo node
+* `URI="#Id"` in reference node for KeyInfo node
 
-The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the resolvers `XmlSignBAHResolver`, `XmlSignDocumentResolver` have been added.
+The `org.apache.xml.security.signature.XMLSignature` implementation used by this library doesn't have the required resolvers for reference nodes with `URI=""` and no URI attribute, so the resolvers `XmlSignBAHResolver`, `XmlSignDocumentResolver` have been added.
 
 **Step 4: Process the message**
 

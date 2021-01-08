@@ -25,7 +25,7 @@ Example Output XML node
 **Step 3: Populate KeyInfo node**
 * Add KeyInfo child node to the Signature parent element
 * Build the X509Data sub node by populating the Subject Key Identifier (SKI) value from the signer certificate in the X509SKI sub-element
-* Assign a UNIQUE_IDENTIFY_VALUE to the attribute ìIdî of the KeyInfo element
+* Assign a UNIQUE_IDENTIFY_VALUE to the attribute ‚ÄúId‚Äù of the KeyInfo element
 
 
 Example Output XML node
@@ -55,8 +55,8 @@ Considerations:
 * The signing process requires generation of digest for above 3 nodes. The digests are calculated during signing process, which is final step. See internal implementation of org.apache.xml.security.signature.XMLSignature.sign() method. Other libraries may have their own implementation.
 * org.apache.xml.security.signature.XMLSignature uses the resolvers to find the relevant node for calculating the digest for each reference.
 * ISO20022 rules mandate the reference nodes to follow specific URI attributes, as shown below.
-    -   URI="" in reference for Document node
-    -   No URI in reference node for AppHdr node
+    -   URI="" in reference for AppHdr node
+    -   No URI in reference node for Document node
     -   URI="#Id" in reference node for KeyInfo node
 * The org.apache.xml.security.signature.XMLSignature implementation used by this library doesn't have the required resolvers for reference nodes with URI="" and no URI attribute, so the resolvers `XmlSignBAHResolver`, `XmlSignDocumentResolver` have been added.
 

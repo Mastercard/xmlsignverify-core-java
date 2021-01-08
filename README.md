@@ -1,4 +1,7 @@
 [![](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Mastercard/ap-bah-crypto-utility/blob/master/LICENSE)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_xmlsignverify-core-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=Mastercard_xmlsignverify-core-java)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_xmlsignverify-core-java&metric=coverage)](https://sonarcloud.io/dashboard?id=Mastercard_xmlsignverify-core-java)
+[![](https://sonarcloud.io/api/project_badges/measure?project=Mastercard_xmlsignverify-core-java&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Mastercard_xmlsignverify-core-java)
 
 
 ## Table of Contents
@@ -8,7 +11,7 @@
   * [Signing the request](#signrequest)
   * [Verifying the request](#verifyrequest)
   * [Adding the Library to Your Project](#adding-the-library-to-your-project)
-  * [Keytool Command to generate private-pubic key pair](#keytool-command-to-generate-public-private-key-pair)
+  * [Keytool Command to generate public-private key pair](#keytool-command-to-generate-public-private-key-pair)
 
 ## Overview <a name="overview"></a>
 This SDK library provides reference implementation of ISO 20022 Digital Signature specification to sign and verify XML messages. 
@@ -58,7 +61,7 @@ Refer to [detailed message verification flow](docs/MessageVerificationFlow.md)
 </dependency>
 ```
 
-### Keytool Command to generate private-pubic key pair <a name="keytool-command-to-generate-public-private-key-pair"></a>
+### Keytool Command to generate public-private key pair <a name="keytool-command-to-generate-public-private-key-pair"></a>
 
 Execute the command from command prompt 
 ```java
