@@ -39,7 +39,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 import java.security.PublicKey;
 import java.util.UUID;
 
@@ -47,26 +46,33 @@ import static com.mastercard.ap.security.bah.utility.context.Constants.BAH_NAME;
 import static com.mastercard.ap.security.bah.utility.context.Constants.DS_NS;
 import static com.mastercard.ap.security.bah.utility.context.Constants.SECUREMENT_ACTION_EXCLUSION;
 import static com.mastercard.ap.security.bah.utility.context.Constants.SECUREMENT_ACTION_SEPARATOR;
-import static com.mastercard.ap.security.bah.utility.context.Constants.SECUREMENT_ACTION_SET;
 import static com.mastercard.ap.security.bah.utility.context.Constants.SECUREMENT_ACTION_TRANSFORMER_EXCLUSION;
 import static com.mastercard.ap.security.bah.utility.context.Constants.SIGNATURE_LOCAL_NAME;
 import static com.mastercard.ap.security.bah.utility.context.Constants.WS_SECURITY_NAME;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class XmlSignUtil {
 
-    private final static Logger LOG = LoggerFactory.getLogger(XmlSignUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XmlSignUtil.class);
 
-    private final static String expression;
+    private static final String EXPRESSION;
+
+    private static Set<String> securementActionSet = new HashSet<>(Arrays.asList(SECUREMENT_ACTION_TRANSFORMER_EXCLUSION, "KeyInfo", SECUREMENT_ACTION_EXCLUSION));
+    
+    private XmlSignUtil(){}
 
     static {
         org.apache.xml.security.Init.init();
-        StringBuffer securementActionBuffer = new StringBuffer();
-        for (String securementAction : SECUREMENT_ACTION_SET) {
+        StringBuilder securementActionBuffer = new StringBuilder();
+        for (String securementAction : securementActionSet){
             securementActionBuffer.append(String.format("//*[local-name()='%s']", securementAction));
             securementActionBuffer.append(String.format("%s", SECUREMENT_ACTION_SEPARATOR));
         }
         String returnValue = securementActionBuffer.toString();
-        expression =  returnValue.substring(0, returnValue.length() - SECUREMENT_ACTION_SEPARATOR.length());
+        EXPRESSION =  returnValue.substring(0, returnValue.length() - SECUREMENT_ACTION_SEPARATOR.length());
     }
 
     /**
@@ -77,9 +83,8 @@ public class XmlSignUtil {
      * @return - the signed xml document
      * @throws XMLSecurityException
      * @throws XPathExpressionException
-     * @throws XPathFactoryConfigurationException
      */
-    public static Document sign(Document document, SignatureInfo signatureInfo, SignatureKeyInfo signatureKeyInfo) throws XMLSecurityException, XPathExpressionException, XPathFactoryConfigurationException {
+    public static Document sign(Document document, SignatureInfo signatureInfo, SignatureKeyInfo signatureKeyInfo) throws XMLSecurityException, XPathExpressionException{
         final NodeList bahNodes = document.getElementsByTagNameNS(BAH_NAME.getNamespaceURI(), BAH_NAME.getLocalPart());
         if (bahNodes.getLength() == 0) {
             LOG.error("No BAH element is provided in request");
@@ -108,7 +113,7 @@ public class XmlSignUtil {
         XPathFactory xpf = new net.sf.saxon.xpath.XPathFactoryImpl();
         XPath xpath = xpf.newXPath();
         xpath.setNamespaceContext(new DSNamespaceContext());
-        NodeList elementsToSign = (NodeList) xpath.evaluate(expression, document, XPathConstants.NODESET);
+        NodeList elementsToSign = (NodeList) xpath.evaluate(EXPRESSION, document, XPathConstants.NODESET);
         for (int i = 0; i < elementsToSign.getLength(); i++) {
             Element elementToSign = (Element) elementsToSign.item(i);
             String elementName = elementToSign.getLocalName();
@@ -148,13 +153,11 @@ public class XmlSignUtil {
         XMLSignature signature = new XMLSignature(signatureElementInMessage, document.getBaseURI(), false);
         signature.addResourceResolver(new XmlSignDocumentResolver(document));
         signature.addResourceResolver(new XmlSignBAHResolver());
-        boolean isValid = signature.checkSignatureValue(publicKey);
-        return isValid;
+        return signature.checkSignatureValue(publicKey);
     }
 
     private static Transforms getSecurementTransformer(Document envelopeAsDocument) {
-        Transforms transforms = new Transforms(envelopeAsDocument);
-        return transforms;
+        return new Transforms(envelopeAsDocument);
     }
 
 }

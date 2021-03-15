@@ -22,10 +22,7 @@ import com.mastercard.ap.security.bah.utility.context.DSNamespaceContext;
 import org.apache.xml.security.signature.XMLSignatureInput;
 import org.apache.xml.security.utils.resolver.ResourceResolverContext;
 import org.apache.xml.security.utils.resolver.ResourceResolverSpi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -35,8 +32,6 @@ import javax.xml.xpath.XPathFactory;
 
 
 public class XmlSignDocumentResolver extends ResourceResolverSpi {
-
-    private final static Logger LOG = LoggerFactory.getLogger(XmlSignDocumentResolver.class);
 
     private final String expression = String.format("//*[local-name()='%s']", "Document");
 
@@ -58,10 +53,9 @@ public class XmlSignDocumentResolver extends ResourceResolverSpi {
                 xpath.setNamespaceContext(new DSNamespaceContext());
                 documentNodes = (NodeList) xpath.evaluate(expression, doc, XPathConstants.NODESET);
             } catch (Exception e) {
-                LOG.error("Error occurred " + e);
                 throw new SecurityException("Error occurred in document resolver:", e);
             }
-            selectedElem = (Element) documentNodes.item(0);
+            selectedElem = documentNodes.item(0);
             if (selectedElem == null) {
                 return null;
             }
@@ -77,10 +71,7 @@ public class XmlSignDocumentResolver extends ResourceResolverSpi {
 
     @Override
     public boolean engineCanResolveURI(ResourceResolverContext context) {
-        if (null == context.uriToResolve && doc != null) {
-            return true;
-        }
-        return false;
+        return null == context.uriToResolve && doc != null;
     }
 
 }

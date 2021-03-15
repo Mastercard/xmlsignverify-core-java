@@ -53,10 +53,7 @@ public class XmlSignBAHResolver extends ResourceResolverSpi {
 
     @Override
     public boolean engineCanResolveURI(ResourceResolverContext context) {
-        if (null != context.uriToResolve && context.uriToResolve.equals("")) {
-            return true;
-        }
-        return false;
+        return null != context.uriToResolve && context.uriToResolve.equals("");
     }
 
 

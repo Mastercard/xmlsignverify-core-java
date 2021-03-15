@@ -22,7 +22,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.security.PrivateKey;
-import java.security.PublicKey;
 
 @Getter
 @Builder
