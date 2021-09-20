@@ -9,7 +9,7 @@
     <properties>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <java.version>11</java.version>
-        <org.apache.santuario.xmlsec.version>2.1.4</org.apache.santuario.xmlsec.version>
+        <org.apache.santuario.xmlsec.version>2.1.7</org.apache.santuario.xmlsec.version>
         <net.sf.saxon.version>10.1</net.sf.saxon.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <plugin.site.version>3.3</plugin.site.version>
