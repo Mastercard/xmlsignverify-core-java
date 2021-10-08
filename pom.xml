@@ -28,7 +28,7 @@
         <!-- The destination file for the code coverage report has to be set to the same value
             in the parent pom and in each module pom. Then JaCoCo will add up information in
             the same report, so that, it will give the cross-module code coverage. -->
-        <lombok.version>1.18.0</lombok.version>
+        <lombok.version>1.18.22</lombok.version>
         <junit.version>4.12</junit.version>
         <org.mockito.version>1.9.5</org.mockito.version>
 	<sonar.projectKey>Mastercard_xmlsignverify-core-java</sonar.projectKey>
