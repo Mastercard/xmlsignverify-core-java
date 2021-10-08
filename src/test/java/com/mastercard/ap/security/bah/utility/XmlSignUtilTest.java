@@ -31,11 +31,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyPair;
@@ -117,9 +114,9 @@ public class XmlSignUtilTest {
         XMLUtils.outputDOM(signedDocument, System.out);
     }
 
-    private Document getSignedDocument() throws ParserConfigurationException, SAXException, IOException, XMLSecurityException, XPathExpressionException, XPathFactoryConfigurationException {
+    private Document getSignedDocument() throws XMLSecurityException, XPathExpressionException {
         InputStream sourceDocument = this.getClass().getResourceAsStream("/source-unsigned.xml");
-        Document unSignedDocument = XMLUtils.read(sourceDocument);
+        Document unSignedDocument = XMLUtils.read(sourceDocument, true);
 
         SignatureKeyInfo signatureKeyInfo = SignatureKeyInfo.builder()
                 .privateKey(privateKey)
