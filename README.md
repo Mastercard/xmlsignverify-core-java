@@ -56,8 +56,8 @@ Refer to [detailed message verification flow](docs/MessageVerificationFlow.md)
 ```xml
 <dependency>
     <groupId>com.mastercard.ap.security</groupId>
-    <artifactId>ap-bah-crypto-utility</artifactId>
-    <version>${bah-crypto-utility-version}</version>
+    <artifactId>xmlsignverify-core-java</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
